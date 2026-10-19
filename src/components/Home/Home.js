@@ -1,3 +1,5 @@
+import { useSelector } from "react-redux";
+import { useHome } from "../../hooks/useHome";
 import {
   Banner,
   Header,
@@ -9,6 +11,10 @@ import {
 import OwnerIntro from "./OwnerIntro";
 import { TrustUs } from "./TrustUs";
 function Home() {
+  useHome();
+  
+  const products = useSelector(store => store.products.products);
+  console.log('products====',products)
   return (
     <div className="bg-slate-50 h-full">
       {/* <ProfileView /> */}
@@ -18,8 +24,8 @@ function Home() {
         Collection
       </h3>
       <div className="flex flex-wrap justify-center">
-        {[{}, {}, {}, {}, {}, {}, {}, {}].map(() => {
-          return <ProductCard />;
+        {products.map((item, index) => {
+          return <ProductCard key={index+''} item={item} />;
         })}
         <BestSellerBanner />
         <OwnerIntro />

@@ -9,10 +9,11 @@ const labels = [
   'Sweet',
 ]
 
-const Labels = () => {
+const Labels = (props) => {
+  const { tags } = props;
   return (
     <div className='my-4 flex flex-wrap gap-2'>
-      {labels.map((label) => (
+      {tags.map((label) => (
         <span
           key={label}
           className=' bg-black px-3 py-1 text-sm text-white rounded-md'

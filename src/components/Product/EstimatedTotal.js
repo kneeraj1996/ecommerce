@@ -7,9 +7,34 @@ import {
   faShippingFast,
   faCheck,
 } from "@fortawesome/free-solid-svg-icons";
+import { useSelector } from "react-redux";
 
-const EstimatedTotal = () => {
+const COUPON_DISCOUNT = 5;
+
+const EstimatedTotal = (props) => {
+  const { cartItems } = props;
   const [showFull, setShowFull] = useState(false);
+  const couponCodeSaved = useSelector((store) => store.products.couponCode);
+
+  const calculateItemsTotal = () => {
+
+    let sum = 0;
+    let price = cartItems.reduce((acc, obj) => {
+      
+      sum = sum + (obj.price * obj.quantity);
+
+      return sum;
+
+    },0)
+    return price;
+  }
+
+  const calculateEstimateTotal = () => {
+    let total = calculateItemsTotal();
+    total = couponCodeSaved? total-COUPON_DISCOUNT: total;
+    return total.toFixed(2);
+  }
+
   const renderTotalAmount = () => {
     return (
       <div
@@ -21,7 +46,7 @@ const EstimatedTotal = () => {
           <h1 className="mx-1 ">Estimated Total</h1>
           <FontAwesomeIcon icon={showFull? faCaretUp: faCaretDown} />
         </div>
-        <h1 className="font-bold">₹3,350.00</h1>
+        <h1 className="font-bold">₹{calculateEstimateTotal()}</h1>
       </div>
     );
   };
@@ -36,7 +61,7 @@ const EstimatedTotal = () => {
         <div className="bg-green-100 text-green-400 items-center flex justify-center px-2 rounded-md">
           <FontAwesomeIcon icon={faCheck} />
           <h1 className="ml-2 text-xs text-center">
-            Save up to ₹50.00 on Prepaid
+            Save up to ₹5 on Order
           </h1>
         </div>
       </div>
@@ -67,16 +92,15 @@ const EstimatedTotal = () => {
  showFull?
  <>
             <h1 className="font-bold text-lg">Order Summary</h1>
-            {renderKeyValuePair("MRP total", "₹9,668.00")}
-            {renderKeyValuePair("Discount on MRP", "₹6,318.00")}
-            {renderKeyValuePair("Cart Subtotal", "₹3,350.00")}
-            {renderKeyValuePair("Total discount", "₹0.00")}
-            {renderKeyValuePair("Prepaid Discount", "₹25.00")}
+            {renderKeyValuePair("MRP total", calculateItemsTotal())}
+            {couponCodeSaved?
+            renderKeyValuePair("Coupon Discount", COUPON_DISCOUNT): null}
+          
             {renderKeyValuePair("Shipping Charges", "FREE")}
-            {renderKeyValuePair("MRP total", "₹9,668.00")}
+      
 
             <div className="w-full bg-gray-200 h-1 mt-2 mb-2" />
-            {renderKeyValuePair("Estimated Total", "₹1,697.00", "text-black")}
+            {renderKeyValuePair("Estimated Total", calculateItemsTotal(), "text-black")}
         </>: null}
         {renderButton()}
       </div>

@@ -1,16 +1,40 @@
-import { createBrowserRouter, RouterProvider, Outlet } from "react-router-dom";
+import { useEffect, useState } from "react";
+import {
+  createBrowserRouter,
+  RouterProvider,
+  Outlet,
+  useLocation,
+} from "react-router-dom";
 import Home from "./components/Home/Home";
 import ProductDetail from "./components/Product/ProductDetail";
 import { Header } from "./components/Common/Header";
 import Cart from "./components/Product/Cart";
+import { ProfileView } from "./components/Home";
+import { useDispatch, useSelector } from "react-redux";
+import { toggleVisibleProfile } from "./utils/configSlice";
 
 export default function Body() {
   const AppLayout = () => {
+    const [isCartOpen, setIsCartOpen] = useState(false);
+    const { pathname } = useLocation();
+    const showProfile = useSelector(store => store.config.visibleProfile);
+    const dispatch = useDispatch();
+
+    useEffect(() => {
+      window.scrollTo(0, 0);
+    }, [pathname]);
+
     return (
       <div>
-        <Header />
+        <Header
+          isCartOpen={isCartOpen}
+          onCartToggle={() => setIsCartOpen((isOpen) => !isOpen)}
+        />
         <Outlet />
-        <Cart />
+        {showProfile ? (
+          <ProfileView onClose={() => dispatch(toggleVisibleProfile())} />
+        ) : null}
+        <Cart isOpen={isCartOpen} />
       </div>
     );
   };
@@ -29,7 +53,7 @@ export default function Body() {
           element: <Home />,
         },
         {
-          path: "/perfume/:perfumeId",
+          path: "/product/:productId",
           element: <ProductDetail />,
         },
       ],

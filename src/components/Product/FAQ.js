@@ -1,6 +1,7 @@
 import React from 'react'
 
-const FAQ = () => {
+const FAQ = (props) => {
+  const { reviews } = props
   return (
      <div className="mt-5">
       <h1 className="text-sm font-bold">Faqs</h1>
