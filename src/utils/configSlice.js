@@ -4,15 +4,22 @@ const configSlice = createSlice({
 
     name: 'config',
     initialState: {
-        visibleProfile: false
+        visibleProfile: false,
+        user: {}
 
     },
     reducers: {
        toggleVisibleProfile: (state, action) => {
         state.visibleProfile = !state.visibleProfile;
+       },
+       addUser: (state, action) => {
+        state.user = action.payload;
+       },
+       removeUser: (state, action) => {
+        state.user = {};
        }
     }
 })
 
-export const { toggleVisibleProfile } = configSlice.actions;
+export const { toggleVisibleProfile, addUser, removeUser } = configSlice.actions;
 export default configSlice.reducer;

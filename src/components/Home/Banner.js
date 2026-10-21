@@ -1,4 +1,5 @@
 import { useRef, useState } from 'react';
+import { Link } from 'react-router-dom';
 
 let data = [
     {
@@ -36,12 +37,18 @@ const Banner = () => {
                 aria-label="Promotional banners"
             >
                 {data.map((item, index) => (
-                    <img
-                        key={index}
-                        src={item.img}
-                        alt={`Promotional banner ${index + 1}`}
+                    <Link
+                        to={'https://www.themancompany.com/?utm_source=google&utm_medium=cpc&utm_campaign=HO_Search_Brand_Key_Exact_S&utm_content=169842353965&gad_source=1&gad_campaignid=21969793574&gbraid=0AAAAAqCq9ttKnhvxEYYQST7femKUlm7NO&gclid=CjwKCAjwotzWBhBFEiwA1JhPoN9ltwV_DiJyiRC3byjKQLZJlmROBJfWyJImpxy0IgRsQIqR5HqLgBoCsEgQAvD_BwE'}
                         className="h-1/4 w-full shrink-0 snap-start object-fill"
-                    />
+                        key={index+''}
+                    >
+                        <img
+                            key={index}
+                            src={item.img}
+                            alt={`Promotional banner ${index + 1}`}
+                            
+                        />
+                    </Link>
                 ))}
             </div>
             <div className="flex justify-center gap-2 py-3" aria-label="Choose banner">

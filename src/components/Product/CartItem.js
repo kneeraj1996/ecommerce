@@ -20,7 +20,7 @@ const CartItem = ({ item }) => {
               className="h-16 w-16 rounded-md"
             />
           ) : null}
-          <h2 className="ml-2 text-lg font-medium">{title}</h2>
+          <h2 className="ml-2 text-xs md:text-lg font-medium">{title}</h2>
         </div>
         <div className="text-xs">
           <p className="text-gray-300 line-through">
@@ -31,14 +31,14 @@ const CartItem = ({ item }) => {
         </div>
       </div>
       <div className="mt-3 flex items-center justify-between border-t border-gray-100 pt-3">
-        <span className="text-sm font-medium text-gray-700">Quantity</span>
-        <div className="flex items-center gap-3">
+        <span className="text-xs md:text-sm mr-1  font-medium text-gray-700">Quantity</span>
+        <div className="flex items-center gap-2">
           <button
             type="button"
             onClick={() => dispatch(adjustCartQuantity({ id, amount: -1 }))}
             disabled={quantity === 1}
             aria-label="Decrease quantity"
-            className="h-8 w-8 rounded border border-gray-300 text-lg leading-none disabled:cursor-not-allowed disabled:text-gray-300"
+            className="h-6 md:h-8 w-6 md:w-8 rounded border border-gray-300 text-lg leading-none disabled:cursor-not-allowed disabled:text-gray-300"
           >
             −
           </button>
@@ -49,7 +49,7 @@ const CartItem = ({ item }) => {
             type="button"
             onClick={() => dispatch(adjustCartQuantity({ id, amount: 1 }))}
             aria-label="Increase quantity"
-            className="h-8 w-8 rounded border border-gray-300 text-lg leading-none"
+            className="h-6 md:h-8 w-6 md:w-8 rounded border border-gray-300 text-lg leading-none"
           >
             +
           </button>

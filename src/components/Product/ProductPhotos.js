@@ -32,8 +32,8 @@ const ProductPhotos = (props) => {
   };
 
   return (
-    <div className="w-1/2 min-w-0">
-      <div className="h-[600px] w-full rounded-md border-[0.5px] border-black bg-yellow-400">
+    <div className="w-full min-w-0 md:w-1/2">
+      <div className="aspect-square w-full overflow-hidden rounded-md border-[0.5px] border-black bg-yellow-400 lg:aspect-auto lg:h-[600px]">
         <img
           src={selectedPhoto}
           alt="Perfume"

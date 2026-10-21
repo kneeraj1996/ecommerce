@@ -3,7 +3,7 @@ import { faCartShopping } from "@fortawesome/free-solid-svg-icons";
 import { ApplyCoupon, CartItem, EstimatedTotal } from "./index";
 import { useSelector } from "react-redux";
 
-const Cart = ({ isOpen }) => {
+const Cart = ({ isOpen, onCartToggle }) => {
   const cartItems = useSelector((store) => store.products.cartItems);
   
   const totalQuantity = cartItems.reduce(
@@ -20,7 +20,7 @@ const Cart = ({ isOpen }) => {
       className="fixed right-0 top-20 z-40 flex h-[calc(100vh-5rem)] w-3/12 min-w-64 max-w-sm flex-col overflow-hidden rounded-l-md bg-gradient-to-b from-amber-100 to-slate-50 shadow-[-8px_-8px_16px_rgba(0,0,0,0.15)] 
             animate-[slideLeft_0.5s_ease-out]"
     >
-      <h1 className="m-5 shrink-0 font-medium">
+      <h1 className="m-5 shrink-0 font-medium text-sm md:text-base">
         Your Cart ({totalQuantity} {totalQuantity === 1 ? "item" : "items"})
       </h1>
       <div className="min-h-0 flex-1 overflow-y-auto">
@@ -34,7 +34,8 @@ const Cart = ({ isOpen }) => {
         )}
         {cartItems.length ? <ApplyCoupon /> : null}
       </div>
-      {cartItems.length ? <EstimatedTotal cartItems={cartItems}/>: null}
+      {cartItems.length ? <EstimatedTotal 
+      onCartToggle={onCartToggle} cartItems={cartItems}/>: null}
     </div>
   );
 };

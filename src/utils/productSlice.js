@@ -11,6 +11,9 @@ const productSlice = createSlice({
     addProducts: (state, action) => {
       state.products = action.payload;
     },
+    clearCartItems: (state, action) => {
+      state.cartItems = [];
+    },
     addCartItems: (state, action) => {
       const { id } = action.payload;
       const foundItem = state.cartItems.find((item) => item.id === id);
@@ -29,7 +32,9 @@ const productSlice = createSlice({
       }
     },
     removeCartItem: (state, action) => {
+      console.log('action.payload====',action.payload);
       let filteredItems = state.cartItems.filter((item) => item.id != action.payload);
+      console.log('filtered items=====',filteredItems)
       state.cartItems = filteredItems;
     },
 
@@ -39,6 +44,6 @@ const productSlice = createSlice({
   },
 });
 
-export const {removeCartItem, addProducts, addCartItems, adjustCartQuantity, addCouponCode } =
+export const {removeCartItem, clearCartItems, addProducts, addCartItems, adjustCartQuantity, addCouponCode } =
   productSlice.actions;
 export default productSlice.reducer;

@@ -8,7 +8,7 @@ import {
 
 const ShippingLabels = () => {
     return (
-        <div className='flex justify-around mb-5'>
+        <div className='flex items-center justify-center md:justify-around mb-5'>
             <div className="flex mr-5 items-center">
                 <div className='rounded-full mr-5 h-16 w-16 border-s-2 border-blue-300 bg-white justify-center  items-center flex'>
                     <FontAwesomeIcon 
@@ -25,7 +25,7 @@ const ShippingLabels = () => {
                 </div>
                 <h1 className="text-black">Easy Returns</h1>
             </div>
-            <div className="flex mr-5 items-center">
+            <div className="flex mr-5 items-center invisible md:visible w-0 md:w-auto">
                 <div className='rounded-full mr-5 h-16 w-16 border-s-2 border-blue-300 bg-white justify-center  items-center flex'>
                     <FontAwesomeIcon 
                         icon={faMoneyBillWave}
@@ -33,7 +33,7 @@ const ShippingLabels = () => {
                 </div>
                 <h1 className="text-black">COD Available</h1>
             </div>
-            <div className="flex mr-5 items-center">
+            <div className="flex mr-5 items-center invisible md:visible   w-0 md:w-auto">
                 <div className='rounded-full mr-5 h-16 w-16 border-s-2 border-blue-300 bg-white justify-center  items-center flex'>
                     <FontAwesomeIcon 
                         icon={faTruckFast}

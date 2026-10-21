@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faIndianRupee,
@@ -7,14 +8,17 @@ import {
   faShippingFast,
   faCheck,
 } from "@fortawesome/free-solid-svg-icons";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import { clearCartItems } from "../../utils/productSlice";
 
 const COUPON_DISCOUNT = 5;
 
 const EstimatedTotal = (props) => {
-  const { cartItems } = props;
+  const dispatch = useDispatch();
+  const { cartItems, onCartToggle } = props;
   const [showFull, setShowFull] = useState(false);
   const couponCodeSaved = useSelector((store) => store.products.couponCode);
+  const navigate = useNavigate();
 
   const calculateItemsTotal = () => {
 
@@ -39,11 +43,11 @@ const EstimatedTotal = (props) => {
     return (
       <div
         onClick={() => setShowFull(!showFull)}
-        className="flex justify-between"
+        className="flex justify-between cursor-pointer"
       >
         <div className="flex justify-center items-center">
           <FontAwesomeIcon icon={faIndianRupee} />
-          <h1 className="mx-1 ">Estimated Total</h1>
+          <h1 className="mx-1  ">Estimated Total</h1>
           <FontAwesomeIcon icon={showFull? faCaretUp: faCaretDown} />
         </div>
         <h1 className="font-bold">₹{calculateEstimateTotal()}</h1>
@@ -73,14 +77,24 @@ const EstimatedTotal = (props) => {
       return (
         <div className=" flex justify-between items-center">
           <h1 className="text-gray-400">{title}</h1>
-          <h1 className={valueColord || "text-green-400"}>{value}</h1>
+          <h1 className={valueColord || "text-green-400"}>
+            {typeof value === "number" ? value.toFixed(2) : value}
+          </h1>
         </div>
       );
     };
 
+    const onOrderNowPressed = () => {
+      dispatch(clearCartItems([]))
+      onCartToggle();
+      navigate('/orderBooked')
+    }
+
     const renderButton = () => {
       return (
-        <button className="w-full h-9 bg-gradient-to-r mt-2 from-amber-500 rounded-md to-amber-200 text-white flex justify-center items-center">
+        <button 
+        onClick={onOrderNowPressed}
+        className="w-full h-9 bg-gradient-to-r mt-2 from-amber-500 rounded-md to-amber-200 text-white flex justify-center items-center cursor-pointer">
           Order Now
         </button>
       );
@@ -100,7 +114,7 @@ const EstimatedTotal = (props) => {
       
 
             <div className="w-full bg-gray-200 h-1 mt-2 mb-2" />
-            {renderKeyValuePair("Estimated Total", calculateItemsTotal(), "text-black")}
+            {renderKeyValuePair("Estimated Total", calculateEstimateTotal(), "text-black")}
         </>: null}
         {renderButton()}
       </div>
@@ -108,7 +122,7 @@ const EstimatedTotal = (props) => {
   };
 
   return (
-    <div className="w-full shrink-0 rounded-t-xl bg-white p-5 shadow-[0_-4px_4px_rgb(0,0,0,0.12)]">
+    <div className="w-full shrink-0 rounded-t-xl bg-white p-5 shadow-[0_-4px_4px_rgb(0,0,0,0.12)] text-sm md:text-base">
       {renderTotalAmount()}
       {showFull&& renderLabels()}
       {renderOrderSummary()}

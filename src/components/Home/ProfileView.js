@@ -1,8 +1,11 @@
 import { useEffect } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faDoorOpen, faXmark } from "@fortawesome/free-solid-svg-icons";
+import { useSelector } from "react-redux";
+import { capitalizeFirstLetter } from "../../utils/helper";
 
-function ProfileView({ onClose }) {
+function ProfileView({ onClose, removeUser }) {
+  const user = useSelector((store) => store.config.user);
   useEffect(() => {
     const handleKeyDown = (event) => {
       if (event.key === "Escape") {
@@ -26,7 +29,7 @@ function ProfileView({ onClose }) {
         role="dialog"
         aria-modal="true"
         aria-label="My account"
-        className="absolute right-72 top-14 flex h-24 w-40 flex-col items-center justify-center rounded-md bg-gradient-to-tr from-purple-400 text-white"
+        className="absolute right-4 md:right-72 top-12 md:top-15 flex h-24 w-40 flex-col items-center justify-center rounded-md bg-gradient-to-tr shadow-xl from-amber-400 to-amber-100 text-black"
       >
         <button
           type="button"
@@ -36,8 +39,10 @@ function ProfileView({ onClose }) {
         >
           <FontAwesomeIcon icon={faXmark} />
         </button>
-        <p className="text-white font-bold">Neeraj Kalra</p>
-        <button className="flex my-3 font-bold text-white">
+        <p className="text-black font-bold">{(user && user.displayName)? capitalizeFirstLetter(user.displayName):''}</p>
+        <button 
+          onClick={() => removeUser()}
+          className="flex my-3 font-bold text-black">
           <FontAwesomeIcon
             className="text-blue-700 text-3xl"
             icon={faDoorOpen}
