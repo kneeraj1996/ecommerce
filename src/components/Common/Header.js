@@ -58,7 +58,7 @@ const Header = ({ isCartOpen, onCartToggle }) => {
   }, [dispatch, navigate, pathname]);
 
   return (
-    <div className="sticky top-0 z-50 flex flex-wrap items-center justify-between gap-y-1 bg-gradient-to-b from-orange-300 to-orange-100 px-3 py-2 sm:px-4 md:relative md:flex-nowrap md:px-5 md:py-0">
+    <div className="fixed inset-x-0 top-0 z-50 flex flex-wrap items-center justify-between gap-y-1 bg-gradient-to-b from-orange-300 to-orange-100 px-3 py-2 sm:px-4 md:flex-nowrap md:px-5 md:py-0">
       <div className="order-1 flex items-center gap-2 md:p-3 lg:p-5">
         <FontAwesomeIcon
           className="text-2xl text-blue-700 md:text-3xl"

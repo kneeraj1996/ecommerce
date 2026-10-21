@@ -48,6 +48,7 @@ export default function Body() {
           isCartOpen={isCartOpen}
           onCartToggle={() => setIsCartOpen((isOpen) => !isOpen)}
         />
+        <div aria-hidden="true" className="h-24 md:h-16 lg:h-20" />
         <Outlet />
         {showProfile ? (
           <ProfileView 
